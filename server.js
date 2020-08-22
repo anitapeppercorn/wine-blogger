@@ -1,5 +1,5 @@
 const express = require('express');
-const routes = require('./controllers');
+const routes = require('./controllers/api/index');
 const sequelize = require('./config/connection.js');
 const path = require('path');
 
@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 3001;
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 const sess = {
-    secret: 'giantredrooster',
+    secret: 'WhiteWalkers',
     cookie: {
         // Session will automatically expire in 10 minutes
         expires: 100 * 60 * 1000
