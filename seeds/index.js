@@ -20,7 +20,7 @@ const seedAll = async () => {
 
     await seedWine();
     console.log('\n----- WINES SEEDED -----\n');
-    
+
     process.exit(0);
 };
 
