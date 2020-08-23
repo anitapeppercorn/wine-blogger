@@ -3,7 +3,7 @@ const { User, Wine, Comment, Vote } = require('../../models');
 const sequelize = require('../../config/connection');
 const withAuth = require('../../utils/auth');
 
-// Get all wines
+// Get all wine posts
 router.get('/', (req, res) => {
     Wine.findAll({
         attributes: [
@@ -36,7 +36,7 @@ router.get('/', (req, res) => {
         });
 });
 
-// Get wine by ID
+// Get a single wine post
 router.get('/:id', (req, res) => {
     Wine.findOne({
         where: {
@@ -79,7 +79,7 @@ router.get('/:id', (req, res) => {
         });
 });
 
-// Post wine
+// Create a wine post
 router.post('/', withAuth, (req, res) => {
     Wine.create({
         name: req.body.name,
