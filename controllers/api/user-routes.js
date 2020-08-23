@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, Wine, Vote } = require('../../models');
+const { User, Wine, Vote, Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
 
 // Get all users
@@ -23,22 +23,22 @@ router.get('/:id', (req, res) => {
         },
         include: [
             {
-                model: Whiskey,
-                attributes: ['id', 'name', 'bottle_size', 'price_paid', 'resell_value', 'user_id', 'notes']
+                model: Wine,
+                attributes: ['id', 'name', 'bottle_size', 'price_paid', 'notes', 'user_id']
             },
             {
                 model: Comment,
-                attributes: ['id', 'whiskey_id', 'comment_text', 'user_id', 'created_at'],
+                attributes: ['id', 'user_id', 'wine_id', 'comment_text', 'created_at'],
                 include: {
-                    model: Whiskey,
+                    model: Wine,
                     attributes: ['name']
                 }
             },
             {
-                model: Whiskey,
-                attributes: ['title'],
+                model: Wine,
+                attributes: ['name'],
                 through: Vote,
-                as: 'voted_whiskey'
+                as: 'voted_wine'
             }
         ]
 
@@ -57,7 +57,7 @@ router.get('/:id', (req, res) => {
 });
 
 // Post Users
-router.post('/signup', (req, res) => {
+router.post('/', (req, res) => {
     User.create({
         username: req.body.username,
         email: req.body.email,

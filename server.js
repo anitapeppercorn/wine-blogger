@@ -1,6 +1,6 @@
 const express = require('express');
-const routes = require('./controllers/api/index');
-const sequelize = require('./config/connection.js');
+const routes = require('./controllers');
+const sequelize = require('./config/connection');
 const path = require('path');
 
 const helpers = require('./utils/helpers');
@@ -16,10 +16,10 @@ const PORT = process.env.PORT || 3001;
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 const sess = {
-    secret: 'WhiteWalkers',
+    secret: 'whiteWalkers',
     cookie: {
         // Session will automatically expire in 10 minutes
-        expires: 100 * 60 * 1000
+        expires: 10 * 60 * 1000
     },
     resave: true,
     rolling: true,

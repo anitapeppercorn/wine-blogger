@@ -11,7 +11,6 @@ router.get('/', (req, res) => {
             'name',
             'bottle_size',
             'price_paid',
-            'resell_value',
             'notes',
             [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE wine.id = vote.wine_id)'), 'vote_count']
         ],
