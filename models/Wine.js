@@ -48,10 +48,6 @@ wine.init(
             type: DataTypes.FLOAT,
             allowNull: true
         },
-        resell_value: {
-            type: DataTypes.FLOAT,
-            alllowNull: true
-        },
         notes: {
             type: DataTypes.TEXT,
             allowNull: true
