@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/anitapeppercorn/wine-blogger#readme",
   "dependencies": {
+    "aws-sdk": "^2.739.0",
     "bcrypt": "^5.0.0",
     "connect-session-sequelize": "^7.0.1",
     "dotenv": "^8.2.0",
@@ -28,6 +29,7 @@
     "express-handlebars": "^5.1.0",
     "express-session": "^1.17.1",
     "lodash": "^4.17.20",
+    "multer": "^1.4.2",
     "mysql2": "^2.1.0",
     "sequelize": "^6.3.4"
   }
