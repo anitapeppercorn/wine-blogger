@@ -52,7 +52,7 @@
 
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary"  id="close-btn" data-dismiss="modal">Close</button>
                             <button type="button submit" class="btn btn-primary" id="submit">Save changes</button>
                         </div>
                         </form>
@@ -64,7 +64,7 @@
     <ol class="container animate__animated animate__fadeInUp">
         {{#if wines.length}}
             {{#each wines as |wine|}}
-                {{>inventory-cards wine}}
+                {{>edit-cards wine}}
             {{/each}}
         </ol>
         {{else}}
