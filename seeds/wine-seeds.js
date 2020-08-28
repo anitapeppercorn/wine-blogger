@@ -7,6 +7,7 @@ const wineData = [
         price_paid: "15",
         notes: "Absolutely love this wine!",
         user_id: 3
+
     },
     {
         name: "Moscato d'Asti",

@@ -16,9 +16,10 @@ async function newWineHandler(event) {
         price_paid,
         notes
     });
+
     //const blob = new Blob([json], {type: 'application/json'});
-    //d.append('json', blob)
-    const response = await fetch(`/api/wine/file`, {
+    d.append('json', json)
+    const response = await fetch(`/api/wine/`, {
         method: 'POST', 
         body: d
     })
