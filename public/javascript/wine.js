@@ -2,7 +2,7 @@ async function newWineHandler(event) {
     event.preventDefault();
 
     const name = document.querySelector('#wine').value.trim();
-    const bottle_size = document.querySelector('#size').value.trim();
+    const bottle_size = document.getElementById('sizes').value.trim();
     const price_paid = document.querySelector('#retail-price').value.trim();
     const notes = document.querySelector('#notes').value.trim();
     const image = document.querySelector('#input-image');

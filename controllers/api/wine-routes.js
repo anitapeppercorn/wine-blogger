@@ -92,63 +92,45 @@ router.get('/:id', (req, res) => {
 
 
 router.put('/:id', withAuth, upload.single('image'), (req, res) => {
-    console.log("Did this work: ", req.body);
-    const wineData = JSON.parse(req.body.json);
-    console.log("imave", req.file)
+    let wineData = JSON.parse(req.body.json);
     const s3 = new awsSDK.S3();
+    
     fs.readFile(`uploads/${req.file.filename}`, function (er, d) {
-    s3.putObject({
-        Bucket: 'wineblogger.com',
-        Key: wineData.imageKey,
-        Body: d
-    }, function (err, data) {
-        if (err) {
-            console.log("There was an error: ", err);
-            return res.status(500).send({
-                success: false,
-                message: 'Error saving fil to aws',
-                error: err
+        s3.putObject({
+            Bucket: 'wineblogger.com',
+            Key: wineData.imageKey,
+            Body: d
+        }, function (err, data) {
+            if (err) {
+                console.log("There was an error: ", err);
+                return res.status(500).send({
+                    success: false,
+                    message: 'Error saving fil to aws',
+                    error: err
+                })
+            }
+
+            delete wineData['imageKey'];
+            Wine.update(wineData,
+            {
+                where: {
+                    id: req.params.id
+                }
             })
-        }
-
-        console.log(data);
-        //let bucketPath = "https://s3.us-east-2.amazonaws.com/wineblogger.com/" + req.file.filename;
-        res.status(200).send({
-            message: `Updated: ${wineData.imageKey}`,
-            awsResponse: data
-        })
-        /*Wine.create({
-            name: wineData.name,
-            bottle_size: wineData.bottle_size,
-            price_paid: wineData.price_paid,
-            notes: wineData.notes,
-            user_id: req.session.user_id,
-            imageurl: bucketPath
-        })
             .then(dbWineData => {
-
-
                 res.json({ wine: dbWineData, awsResponse: data })
             })
             .catch(err => {
                 console.log(err);
                 res.status(500).json(err);
-            });*/
-    })
-})
-   
-    /*Wine.update(wineData,
-        {
-            where: {
-                id: req.params.id
-            }
+            });
+            
+            res.status(200).send({
+                message: `Updated: ${wineData.imageKey}`,
+                awsResponse: data
+            })
         })
-        .then(updatedVoteData => res.json(updatedVoteData))
-        .catch(err => {
-            console.log(err);
-            res.status(500).json(err);
-        });*/
-
+    })
 });
 
 //wine voting route
@@ -170,17 +152,17 @@ router.delete('/:id', withAuth, (req, res) => {
             id: req.params.id
         }
     })
-        .then(dbWineData => {
-            if (!dbWineData) {
-                res.status(404).json({ message: 'No wine found with this id' });
-                return;
-            }
-            res.json(dbWineData);
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json(err);
-        });
+    .then(dbWineData => {
+        if (!dbWineData) {
+            res.status(404).json({ message: 'No wine found with this id' });
+            return;
+        }
+        res.json(dbWineData);
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    });
 });
 
 router.post('/', withAuth, upload.single('image'), (req, res) => {
@@ -215,15 +197,13 @@ router.post('/', withAuth, upload.single('image'), (req, res) => {
                 user_id: req.session.user_id,
                 imageurl: bucketPath
             })
-                .then(dbWineData => {
-
-
-                    res.json({ wine: dbWineData, awsResponse: data })
-                })
-                .catch(err => {
-                    console.log(err);
-                    res.status(500).json(err);
-                });
+            .then(dbWineData => {
+                res.json({ wine: dbWineData, awsResponse: data })
+            })
+            .catch(err => {
+                console.log(err);
+                res.status(500).json(err);
+            });
 
         })
     })
