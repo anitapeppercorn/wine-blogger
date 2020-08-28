@@ -29,9 +29,15 @@ const close = () => {
 
 // update the wine post
 async function update(id, wine, size, price, note, imageFile, imageKey) {
-    // TODO: make an if statement to handle if a new image is not uploaded
     let d = new FormData(); 
-    d.append('image', imageFile.files[0])
+
+    // TODO: handle if the image is not updated
+    // FIXME: 500 error code
+    // if(imageFile.files[0]) {
+    //     d.append('image', imageFile.files[0]);
+    // }
+    
+    d.append('image', imageFile.files[0]);
     d.append('json', JSON.stringify({
         name: wine,
         bottle_size: size,
@@ -79,7 +85,7 @@ const populateModal = (data, id, imageURL) => {
 
 async function editClickHandler(event) {
     event.preventDefault();
-    let image = document.getElementById(`wine-pic-${this.id}`).src;
+    const image = document.getElementById(`wine-pic-${this.id}`).src;
     const imageURL = image.split('/')[image.length - 1];
 
     // get the data

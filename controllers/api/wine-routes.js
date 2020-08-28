@@ -95,6 +95,7 @@ router.put('/:id', withAuth, upload.single('image'), (req, res) => {
     let wineData = JSON.parse(req.body.json);
     const s3 = new awsSDK.S3();
     
+    // FIXME: filename in req.file.filename is undefined when using the if statement in edit.js (line 36)
     fs.readFile(`uploads/${req.file.filename}`, function (er, d) {
         s3.putObject({
             Bucket: 'wineblogger.com',
