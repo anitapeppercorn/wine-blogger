@@ -23,6 +23,7 @@
                                     <label for="wine">Choose your wine from the list:</label>
                                     <input list="wines" name="wine" id="wine">
                                     {{!-- will pull from API to fill with #each --}}
+                                    {{!-- change to a textbox --}}
                                     <datalist id="wines">
                                         <option value="Pinot Grigio">
                                         <option value="Moscato d'Asti">
@@ -31,10 +32,12 @@
                                         <option value="Apothic Red">
                                     </datalist>
                                 </div>
+                                {{!-- wine type --}}
                                 <div>
                                     <label for="size">Select a bottle size:</label>
                                     <input list="sizes" name="size" id="size">
                                     {{!-- Current bottle sizes, leave this hardcoded --}}
+                                    {{!-- TODO: change to select tag --}}
                                     <datalist id="sizes">
                                         <option value="750 ml">
                                         <option value="375 ml">
