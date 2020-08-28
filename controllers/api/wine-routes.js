@@ -7,6 +7,11 @@ const multer = require('multer');
 const { response } = require('express');
 var upload = multer({ dest: 'uploads/' });
 let fs = require('fs');
+
+awsSDK.config.update({
+    accessKeyId: process.env.aws_accesskey,
+    secretAccessKey: process.env.aws_secretkey
+})
 // Get all wine posts
 router.get('/', (req, res) => {
     Wine.findAll({
@@ -86,8 +91,53 @@ router.get('/:id', (req, res) => {
 });
 
 
-router.put('/:id', withAuth, (req, res) => {
-    Wine.update(req.body,
+router.put('/:id', withAuth, upload.single('image'), (req, res) => {
+    console.log("Did this work: ", req.body);
+    const wineData = JSON.parse(req.body.json);
+    console.log("imave", req.file)
+    const s3 = new awsSDK.S3();
+    fs.readFile(`uploads/${req.file.filename}`, function (er, d) {
+    s3.putObject({
+        Bucket: 'wineblogger.com',
+        Key: wineData.imageKey,
+        Body: d
+    }, function (err, data) {
+        if (err) {
+            console.log("There was an error: ", err);
+            return res.status(500).send({
+                success: false,
+                message: 'Error saving fil to aws',
+                error: err
+            })
+        }
+
+        console.log(data);
+        //let bucketPath = "https://s3.us-east-2.amazonaws.com/wineblogger.com/" + req.file.filename;
+        res.status(200).send({
+            message: `Updated: ${wineData.imageKey}`,
+            awsResponse: data
+        })
+        /*Wine.create({
+            name: wineData.name,
+            bottle_size: wineData.bottle_size,
+            price_paid: wineData.price_paid,
+            notes: wineData.notes,
+            user_id: req.session.user_id,
+            imageurl: bucketPath
+        })
+            .then(dbWineData => {
+
+
+                res.json({ wine: dbWineData, awsResponse: data })
+            })
+            .catch(err => {
+                console.log(err);
+                res.status(500).json(err);
+            });*/
+    })
+})
+   
+    /*Wine.update(wineData,
         {
             where: {
                 id: req.params.id
@@ -97,7 +147,7 @@ router.put('/:id', withAuth, (req, res) => {
         .catch(err => {
             console.log(err);
             res.status(500).json(err);
-        });
+        });*/
 
 });
 
@@ -137,10 +187,7 @@ router.post('/', withAuth, upload.single('image'), (req, res) => {
     let wineData = JSON.parse(req.body.json);
     console.log("body", wineData);
     console.log("image", req.file)
-    awsSDK.config.update({
-        accessKeyId: process.env.aws_accesskey,
-        secretAccessKey: process.env.aws_secretkey
-    })
+    
     const s3 = new awsSDK.S3();
     fs.readFile(`uploads/${req.file.filename}`, function (er, d) {
 

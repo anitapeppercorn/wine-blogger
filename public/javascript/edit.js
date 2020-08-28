@@ -1,11 +1,10 @@
 let editModal = document.getElementById('exampleModal');
-let footer = document.getElementsByClassName('modal-footer')[0];
+let updateBtn = document.getElementById('update');
 
 const name = document.querySelector('#wine');
 const bottle_size = document.querySelector('#size');
 const price_paid = document.querySelector('#retail-price');
 const notes = document.querySelector('#notes');
-// const image
 
 // reset the modal
 const clear = () => {
@@ -21,7 +20,7 @@ const clear = () => {
 
     // change back to the submit button
     document.getElementById('submit').style.display = 'block';
-    footer.removeChild(footer.childNodes[5]); 
+    document.getElementById('update').style.display = 'none';
 }
 
 // close the modal
@@ -31,20 +30,26 @@ const close = () => {
     clear();
 }
 
+
+
 // update the wine post
-async function update(id, wine, size, price, note) {
-    console.log(id, wine, size, price, note)
+async function update(id, wine, size, price, note, imageFile, imageKey) {
+    
+    let d = new FormData(); 
+    d.append('image', imageFile.files[0])
+    d.append('json', JSON.stringify({
+        name: wine,
+        bottle_size: size,
+        price_paid: price,
+        notes: note,
+        imageKey: imageKey
+    }))
+    /** headers: {
+            'Content-Type': 'application/json'
+        } */
     const response = await fetch(`/api/wine/${id}`, {
         method: 'PUT',
-        body: JSON.stringify({
-            name: wine,
-            bottle_size: size,
-            price_paid: price,
-            notes: note
-        }),
-        headers: {
-            'Content-Type': 'application/json'
-        }
+        body: d
     });
 
     if (response.ok) {
@@ -60,8 +65,12 @@ const checkValue = (val) => {
     return val.value == ''  ? val.placeholder : val.value;
 }
 
-const populateModal = (data, id) => {
-    console.log(data)
+// aysnc getImgUrl = () => {
+
+// }
+
+const populateModal = (data, id, imageURL) => {
+    // console.log(data)
 
     // show the modal
     editModal.style.display = 'block';
@@ -73,14 +82,11 @@ const populateModal = (data, id) => {
     // hide the submit button
     document.getElementById('submit').style.display = 'none';
     
-    // add the update button
-    let updateBtn = document.createElement('button');
-    updateBtn.innerText = 'Update';
-    updateBtn.className = 'btn btn-primary';
-    footer.appendChild(updateBtn);
+    updateBtn.style.display = 'block';
 
     updateBtn.addEventListener('click', () => {
-        update(id, checkValue(name), checkValue(bottle_size), checkValue(price_paid), notes.value);
+        const imageFile = document.querySelector('#input-image');
+        update(id, checkValue(name), checkValue(bottle_size), checkValue(price_paid), notes.value, imageFile,  imageURL);
     });
     
     // populate the modal
@@ -93,6 +99,8 @@ const populateModal = (data, id) => {
 
 async function editClickHandler(event) {
     event.preventDefault();
+    const image = document.getElementById(`wine-pic-${this.id}`).src.split('/');
+    const imageURL = image[image.length - 1];
 
     // get the data
     const response = await fetch(`/api/wine/${this.id}`, {
@@ -104,17 +112,10 @@ async function editClickHandler(event) {
 
     if (response.ok) {
         // pass the data
-        response.json().then(data => populateModal(data, this.id));
+        response.json().then(data => populateModal(data, this.id, imageURL));
     } else {
         alert(response.statusText);
     }
 }
 
-// FIXME: only adding the event listener to the first element
-Array.from(document.getElementsByClassName('wine-name')).forEach(element  => {
-    element.addEventListener('click', editClickHandler);
-});
-
-
-// FIXME: datalist removes the option list after the user clicks on an option 
-    // (broken for the 'Add' wine option too)
+$(document).on('click', '.wine-name', editClickHandler);
