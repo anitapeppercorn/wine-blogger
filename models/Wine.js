@@ -19,6 +19,7 @@ class Wine extends Model {
                     'bottle_size',
                     'price_paid',
                     'user_id',
+                    'imageurl',
                     [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE wine.id = vote.wine_id)'), 'vote_count']
                 ]
             });
@@ -57,8 +58,15 @@ Wine.init(
                 model: 'user',
                 key: 'id'
             }
+            
+        },
+        imageurl: {
+            type: DataTypes.STRING,
+            defaultValue: 'https://s3.us-east-2.amazonaws.com/wineblogger.com/246f9439e7b28bc9abeb9fc6a4275b47',
+            allowNull: true
         }
     },
+
     {
         sequelize,
         freezeTableName: true,

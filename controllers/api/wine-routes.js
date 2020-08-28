@@ -2,7 +2,11 @@ const router = require('express').Router();
 const { User, Wine, Comment, Vote } = require('../../models');
 const sequelize = require('../../config/connection');
 const withAuth = require('../../utils/auth');
-
+const awsSDK = require('aws-sdk');
+const multer = require('multer');
+const { response } = require('express');
+var upload = multer({ dest: 'uploads/' });
+let fs = require('fs');
 // Get all wine posts
 router.get('/', (req, res) => {
     Wine.findAll({
@@ -80,7 +84,7 @@ router.get('/:id', (req, res) => {
 });
 
 // Create a wine post
-router.post('/', withAuth, (req, res) => {
+/*router.post('/', withAuth, (req, res) => {
     Wine.create({
         name: req.body.name,
         bottle_size: req.body.bottle_size,
@@ -94,6 +98,7 @@ router.post('/', withAuth, (req, res) => {
             res.status(500).json(err);
         });
 });
+*/
 
 router.put('/:id', withAuth, (req, res) => {
     Wine.update(req.body,
@@ -140,6 +145,59 @@ router.delete('/:id', withAuth, (req, res) => {
             console.log(err);
             res.status(500).json(err);
         });
+});
+
+router.post('/', withAuth, upload.single('image'), (req, res) => {
+    let wineData = JSON.parse(req.body.json);
+    console.log("body", wineData);
+    console.log("image", req.file)
+    awsSDK.config.update({
+        accessKeyId: process.env.aws_accesskey,
+        secretAccessKey: process.env.aws_secretkey
+    })
+    const s3 = new awsSDK.S3();
+    fs.readFile(`uploads/${req.file.filename}`, function (er, d) {
+
+        s3.putObject({
+            Bucket: 'wineblogger.com',
+            Key: req.file.filename,
+            Body: d
+        }, function (err, data) {
+            if (err) {
+                console.log("There was an error: ", err);
+                return res.status(500).send({
+                    success: false,
+                    message: 'Error saving fil to aws',
+                    error: err
+                })
+            }
+
+            console.log(data);
+            let bucketPath = "https://s3.us-east-2.amazonaws.com/wineblogger.com/" + req.file.filename;
+            Wine.create({
+                name: wineData.name,
+                bottle_size: wineData.bottle_size,
+                price_paid: wineData.price_paid,
+                notes: wineData.notes,
+                user_id: req.session.user_id,
+                imageurl: bucketPath
+            })
+                .then(dbWineData => {
+
+
+                    res.json({ wine: dbWineData, awsResponse: data })
+                })
+                .catch(err => {
+                    console.log(err);
+                    res.status(500).json(err);
+                });
+
+        })
+    })
+    /*res.status(200).send({
+        message: "Gonna save the image to aws",
+        file: req.file ? req.file : "There was no file"
+    })*/
 });
 
 module.exports = router;

@@ -16,6 +16,7 @@ router.get('/', withAuth, (req, res) => {
             'bottle_size',
             'price_paid',
             'notes',
+            'imageurl',
             [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE wine.id = vote.wine_id)'), 'vote_count']
         ],
         include: [
@@ -55,6 +56,7 @@ router.get('/wine/:id', (req, res) => {
             'bottle_size',
             'price_paid',
             'notes',
+            'imageurl',
             [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE wine.id = vote.wine_id)'), 'vote_count']
         ],
         include: [
