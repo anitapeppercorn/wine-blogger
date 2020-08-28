@@ -84,7 +84,7 @@ router.get('/:id', (req, res) => {
 });
 
 // Create a wine post
-router.post('/', withAuth, (req, res) => {
+/*router.post('/', withAuth, (req, res) => {
     Wine.create({
         name: req.body.name,
         bottle_size: req.body.bottle_size,
@@ -98,6 +98,7 @@ router.post('/', withAuth, (req, res) => {
             res.status(500).json(err);
         });
 });
+*/
 
 //wine voting route
 router.put('/upvote', withAuth, (req, res) => {
@@ -131,16 +132,17 @@ router.delete('/:id', withAuth, (req, res) => {
         });
 });
 
-router.post('/file', withAuth, upload.single('image'), (req, res) => {
+router.post('/', withAuth, upload.single('image'), (req, res) => {
+    let wineData = JSON.parse(req.body.json);
+    console.log("body", wineData);
     console.log("image", req.file)
-    console.log(process.env)
     awsSDK.config.update({
         accessKeyId: process.env.aws_accesskey,
         secretAccessKey: process.env.aws_secretkey
     })
     const s3 = new awsSDK.S3();
     fs.readFile(`uploads/${req.file.filename}`, function (er, d) {
-        
+
         s3.putObject({
             Bucket: 'wineblogger.com',
             Key: req.file.filename,
@@ -154,11 +156,27 @@ router.post('/file', withAuth, upload.single('image'), (req, res) => {
                     error: err
                 })
             }
-            res.status(200).send({
-                message: 'File uplioad to aws',
-                data: data,
-                file: req.file
+
+            console.log(data);
+            let bucketPath = "https://s3.us-east-2.amazonaws.com/wineblogger.com/" + req.file.filename;
+            Wine.create({
+                name: wineData.name,
+                bottle_size: wineData.bottle_size,
+                price_paid: wineData.price_paid,
+                notes: wineData.notes,
+                user_id: req.session.user_id,
+                imageurl: bucketPath
             })
+                .then(dbWineData => {
+
+
+                    res.json({ wine: dbWineData, awsResponse: data })
+                })
+                .catch(err => {
+                    console.log(err);
+                    res.status(500).json(err);
+                });
+
         })
     })
     /*res.status(200).send({

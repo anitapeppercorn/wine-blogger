@@ -11,6 +11,7 @@ router.get('/', (req, res) => {
             'bottle_size',
             'price_paid',
             'notes',
+            'imageurl',
             [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE wine.id = vote.wine_id)'), 'vote_count']
         ],
         include: [
@@ -30,6 +31,7 @@ router.get('/', (req, res) => {
     })
         .then(dbWineData => {
             const wines = dbWineData.map(wine => wine.get({ plain: true }));
+            console.log("wines are: ", wines)
             res.render('homepage', {
                 wines,
                 loggedIn: req.session.loggedIn
@@ -62,6 +64,7 @@ router.get('/wine/:id', (req, res) => {
             'bottle_size',
             'price_paid',
             'notes',
+            'imageurl',
             [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE wine.id = vote.wine_id)'), 'vote_count']
         ],
         include: [
