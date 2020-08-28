@@ -95,6 +95,21 @@ router.post('/', withAuth, (req, res) => {
         });
 });
 
+router.put('/:id', withAuth, (req, res) => {
+    Wine.update(req.body,
+        {
+            where: {
+                id: req.params.id
+            }
+        })
+        .then(updatedVoteData => res.json(updatedVoteData))
+        .catch(err => {
+            console.log(err);
+            res.status(500).json(err);
+        });
+
+});
+
 //wine voting route
 router.put('/upvote', withAuth, (req, res) => {
     if (req.session) {

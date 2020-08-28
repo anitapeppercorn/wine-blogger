@@ -91,4 +91,24 @@ router.get('/wine/:id', (req, res) => {
         });
 });
 
+router.put('/wine/:id', withAuth, (req, res) => {
+    if (req.session) {
+        Wine.update(
+            {
+              title: req.body.title
+            },
+            {
+              where: {
+                id: req.params.id
+              }
+            }
+          )
+            .then(updatedVoteData => res.json(updatedVoteData))
+            .catch(err => {
+                console.log(err);
+                res.status(500).json(err);
+            });
+    }
+});
+
 module.exports = router;
