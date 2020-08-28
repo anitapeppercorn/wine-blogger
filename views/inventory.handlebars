@@ -21,25 +21,18 @@
                             <form class="new-wine">
                                 <div>
                                     <label for="wine">Choose your wine from the list:</label>
-                                    <input list="wines" name="wine" id="wine">
-                                    {{!-- will pull from API to fill with #each --}}
-                                    <datalist id="wines">
-                                        <option value="Pinot Grigio">
-                                        <option value="Moscato d'Asti">
-                                        <option value="Riesling">
-                                        <option value="Pinot Noir">
-                                        <option value="Apothic Red">
-                                    </datalist>
+                                    <input type="text" name="wine" id="wine">
                                 </div>
+                                {{!-- wine type --}}
                                 <div>
                                     <label for="size">Select a bottle size:</label>
-                                    <input list="sizes" name="size" id="size">
                                     {{!-- Current bottle sizes, leave this hardcoded --}}
-                                    <datalist id="sizes">
-                                        <option value="750 ml">
-                                        <option value="375 ml">
-                                        <option value="500 ml">
-                                    </datalist>
+                                    {{!-- TODO: change to select tag --}}
+                                    <select name="size" id="sizes">
+                                        <option value="750 ml">750 ml</option>
+                                        <option value="500 ml">500 ml</option>
+                                        <option value="375 ml">375 ml</option>
+                                    </select>
                                 </div>
                                 <div>
                                     <label for="retail-price">What is the retail price of the wine?</label>
@@ -55,7 +48,8 @@
                                 </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary"  id="close-btn" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" id="update">Update</button>
                             <button type="button submit" class="btn btn-primary" id="submit">Save changes</button>
                         </div>
                         </form>
@@ -67,7 +61,7 @@
     <ol class="container animate__animated animate__fadeInUp">
         {{#if wines.length}}
             {{#each wines as |wine|}}
-                {{>inventory-cards wine}}
+                {{>edit-cards wine}}
             {{/each}}
         </ol>
         {{else}}
@@ -77,6 +71,7 @@
     <!-- test link to image on aws s3 <img src='https://s3.us-east-2.amazonaws.com/wineblogger.com/Screen+Shot+2020-08-25+at+5.26.13+PM.png'/>-->
 </main>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>

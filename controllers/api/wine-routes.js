@@ -7,6 +7,11 @@ const multer = require('multer');
 const { response } = require('express');
 var upload = multer({ dest: 'uploads/' });
 let fs = require('fs');
+
+awsSDK.config.update({
+    accessKeyId: process.env.aws_accesskey,
+    secretAccessKey: process.env.aws_secretkey
+})
 // Get all wine posts
 router.get('/', (req, res) => {
     Wine.findAll({
@@ -86,6 +91,49 @@ router.get('/:id', (req, res) => {
 });
 
 
+router.put('/:id', withAuth, upload.single('image'), (req, res) => {
+    let wineData = JSON.parse(req.body.json);
+    const s3 = new awsSDK.S3();
+    
+    // FIXME: filename in req.file.filename is undefined when using the if statement in edit.js (line 36)
+    fs.readFile(`uploads/${req.file.filename}`, function (er, d) {
+        s3.putObject({
+            Bucket: 'wineblogger.com',
+            Key: wineData.imageKey,
+            Body: d
+        }, function (err, data) {
+            if (err) {
+                console.log("There was an error: ", err);
+                return res.status(500).send({
+                    success: false,
+                    message: 'Error saving fil to aws',
+                    error: err
+                })
+            }
+
+            delete wineData['imageKey'];
+            Wine.update(wineData,
+            {
+                where: {
+                    id: req.params.id
+                }
+            })
+            .then(dbWineData => {
+                res.json({ wine: dbWineData, awsResponse: data })
+            })
+            .catch(err => {
+                console.log(err);
+                res.status(500).json(err);
+            });
+            
+            res.status(200).send({
+                message: `Updated: ${wineData.imageKey}`,
+                awsResponse: data
+            })
+        })
+    })
+});
+
 //wine voting route
 router.put('/upvote', withAuth, (req, res) => {
     if (req.session) {
@@ -105,27 +153,24 @@ router.delete('/:id', withAuth, (req, res) => {
             id: req.params.id
         }
     })
-        .then(dbWineData => {
-            if (!dbWineData) {
-                res.status(404).json({ message: 'No wine found with this id' });
-                return;
-            }
-            res.json(dbWineData);
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json(err);
-        });
+    .then(dbWineData => {
+        if (!dbWineData) {
+            res.status(404).json({ message: 'No wine found with this id' });
+            return;
+        }
+        res.json(dbWineData);
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    });
 });
 
 router.post('/', withAuth, upload.single('image'), (req, res) => {
     let wineData = JSON.parse(req.body.json);
     console.log("body", wineData);
     console.log("image", req.file)
-    awsSDK.config.update({
-        accessKeyId: process.env.aws_accesskey,
-        secretAccessKey: process.env.aws_secretkey
-    })
+    
     const s3 = new awsSDK.S3();
     fs.readFile(`uploads/${req.file.filename}`, function (er, d) {
 
@@ -153,15 +198,13 @@ router.post('/', withAuth, upload.single('image'), (req, res) => {
                 user_id: req.session.user_id,
                 imageurl: bucketPath
             })
-                .then(dbWineData => {
-
-
-                    res.json({ wine: dbWineData, awsResponse: data })
-                })
-                .catch(err => {
-                    console.log(err);
-                    res.status(500).json(err);
-                });
+            .then(dbWineData => {
+                res.json({ wine: dbWineData, awsResponse: data })
+            })
+            .catch(err => {
+                console.log(err);
+                res.status(500).json(err);
+            });
 
         })
     })
