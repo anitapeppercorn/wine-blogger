@@ -16,6 +16,7 @@ router.get('/', (req, res) => {
             'bottle_size',
             'price_paid',
             'notes',
+            'imageurl',
             [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE wine.id = vote.wine_id)'), 'vote_count']
         ],
         include: [
@@ -52,6 +53,7 @@ router.get('/:id', (req, res) => {
             'bottle_size',
             'price_paid',
             'notes',
+            'imageurl',
             [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE wine.id = vote.wine_id)'), 'vote_count']
         ],
         include: [
@@ -83,22 +85,6 @@ router.get('/:id', (req, res) => {
         });
 });
 
-// Create a wine post
-/*router.post('/', withAuth, (req, res) => {
-    Wine.create({
-        name: req.body.name,
-        bottle_size: req.body.bottle_size,
-        price_paid: req.body.price_paid,
-        notes: req.body.notes,
-        user_id: req.session.user_id
-    })
-        .then(dbWineData => res.json(dbWineData))
-        .catch(err => {
-            console.log(err);
-            res.status(500).json(err);
-        });
-});
-*/
 
 //wine voting route
 router.put('/upvote', withAuth, (req, res) => {
@@ -179,10 +165,7 @@ router.post('/', withAuth, upload.single('image'), (req, res) => {
 
         })
     })
-    /*res.status(200).send({
-        message: "Gonna save the image to aws",
-        file: req.file ? req.file : "There was no file"
-    })*/
+
 });
 
 module.exports = router;
