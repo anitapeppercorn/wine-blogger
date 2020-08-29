@@ -85,8 +85,8 @@ const populateModal = (data, id, imageURL) => {
 
 async function editClickHandler(event) {
     event.preventDefault();
-    const image = document.getElementById(`wine-pic-${this.id}`).src;
-    const imageURL = image.split('/')[image.length - 1];
+    const image = document.getElementById(`wine-pic-${this.id}`).src.split('/');
+    const imageURL = image[image.length - 1];
 
     // get the data
     const response = await fetch(`/api/wine/${this.id}`, {
