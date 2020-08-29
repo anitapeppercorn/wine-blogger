@@ -27,6 +27,8 @@ const clear = () => {
 async function update(id, wine, size, price, note, imageFile, imageKey) {
     let d = new FormData(); 
 
+    console.log(id, wine, size, price, note, imageFile, imageKey)
+
     // TODO: handle if the image is not updated
     // FIXME: 500 error code
     // if(imageFile.files[0]) {
