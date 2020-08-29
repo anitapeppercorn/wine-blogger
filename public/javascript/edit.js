@@ -14,7 +14,7 @@ const clear = () => {
 
     // clear values
     name.value = '';
-    bottle_size.selectedIndex = 0;
+    bottle_size.value = '';
     price_paid.value = '';
     notes.value = '';
 

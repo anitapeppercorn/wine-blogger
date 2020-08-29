@@ -3,5 +3,49 @@
 }
 
 .modal-header {
-    /* background-color: #49111C; */
+    background-color: #49111C;
+    color: white;
+}
+
+.modal-title {
+    font-weight: bold;
+    font-size: 22px;
+}
+
+label {
+    font-weight: bold;
+}
+
+input, select, textarea {
+    width: 100%;
+    border: none;
+    border-bottom: solid 1px gray;
+    margin-bottom: 15px;
+}
+
+textarea {
+    border: solid 1px gray;
+}
+
+#input-image {
+    border: none;
+}
+
+.close {
+    color: white;
+    opacity: 1;
+}
+
+.close:hover {
+    color: #fff;
+}
+
+.btn-primary {
+    background-color: #F2AE2E;
+    border: none;
+    opacity: 1;
+}
+
+.btn-primary:hover {
+    background-color: #D99D55;
 }
