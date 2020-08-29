@@ -85,6 +85,7 @@ const populateModal = (data, id, imageURL) => {
 
 async function editClickHandler(event) {
     event.preventDefault();
+
     const image = document.getElementById(`wine-pic-${this.id}`).src.split('/');
     const imageURL = image[image.length - 1];
 
