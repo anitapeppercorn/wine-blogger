@@ -29,6 +29,7 @@ async function newWineHandler(event) {
         response.json().then(data => {
             console.log(data);
         })
+        document.location.reload();
     }
 }
 
