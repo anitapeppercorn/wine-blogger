@@ -33,4 +33,5 @@ async function newWineHandler(event) {
     }
 }
 
+
 document.querySelector('.new-wine').addEventListener('submit', newWineHandler);
