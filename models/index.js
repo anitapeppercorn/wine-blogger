@@ -1,5 +1,5 @@
 const User = require('./User');
-const Wine = require('./wine');
+const Wine = require('./Wine');
 const Comment = require('./Comment');
 const Vote = require('./Vote');
 
