@@ -29,3 +29,15 @@ a {
     text-decoration: none;
     color: black;
 }
+
+.btn-primary {
+    background-color: #F2AE2E;
+    border: none;
+    opacity: 1;
+}
+
+.btn-primary:hover {
+    background-color: #D99D55;
+}
+
+/* #A68160 */

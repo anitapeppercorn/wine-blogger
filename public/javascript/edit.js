@@ -2,6 +2,7 @@ let editModal = $('#exampleModal');
 let updateBtn = document.getElementById('update');
 let submitBtn = document.getElementById('submit');
 let title = document.getElementsByClassName('modal-title')[0];
+let subTitle = document.getElementById('sub-title');
 
 const name = document.querySelector('#wine');
 const bottle_size = document.getElementById('sizes');
@@ -11,6 +12,7 @@ const notes = document.querySelector('#notes');
 // reset the modal
 const clear = () => {
     title.textContent = 'Add A Wine';
+    subTitle.textContent = '';
 
     // clear values
     name.value = '';
@@ -60,6 +62,7 @@ async function update(id, wine, size, price, note, imageFile, imageKey) {
 
 const populateModal = (data, id, imageURL) => {
     title.textContent = 'Update Wine';
+    subTitle.textContent = `${data.name}`;
 
     // add close functionality
     document.getElementsByClassName('close')[0].addEventListener('click', clear);
@@ -80,8 +83,8 @@ const populateModal = (data, id, imageURL) => {
 
 async function editClickHandler(event) {
     event.preventDefault();
-    const image = document.getElementById(`wine-pic-${this.id}`).src;
-    const imageURL = image.split('/')[image.length - 1];
+    const image = document.getElementById(`wine-pic-${this.id}`).src.split('/');
+    const imageURL = image[image.length - 1];
 
     // get the data
     const response = await fetch(`/api/wine/${this.id}`, {

@@ -7,6 +7,10 @@
     color: white;
 }
 
+#title-div {
+    display: block;
+}
+
 .modal-title {
     font-weight: bold;
     font-size: 22px;
@@ -16,7 +20,7 @@ label {
     font-weight: bold;
 }
 
-input, select, textarea {
+.modal-input {
     width: 100%;
     border: none;
     border-bottom: solid 1px gray;
@@ -40,12 +44,6 @@ textarea {
     color: #fff;
 }
 
-.btn-primary {
-    background-color: #F2AE2E;
-    border: none;
-    opacity: 1;
-}
+#sub-title {
 
-.btn-primary:hover {
-    background-color: #D99D55;
 }
