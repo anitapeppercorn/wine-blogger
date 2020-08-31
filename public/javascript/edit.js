@@ -1,6 +1,8 @@
-let editModal = document.getElementById('exampleModal');
+let editModal = $('#exampleModal');
 let updateBtn = document.getElementById('update');
 let submitBtn = document.getElementById('submit');
+let title = document.getElementsByClassName('modal-title')[0];
+let subTitle = document.getElementById('sub-title');
 
 const name = document.querySelector('#wine');
 const bottle_size = document.getElementById('sizes');
@@ -9,9 +11,12 @@ const notes = document.querySelector('#notes');
 
 // reset the modal
 const clear = () => {
+    title.textContent = 'Add A Wine';
+    subTitle.textContent = '';
+
     // clear values
     name.value = '';
-    bottle_size.selectedIndex = 0;
+    bottle_size.value = '';
     price_paid.value = '';
     notes.value = '';
 
@@ -20,23 +25,18 @@ const clear = () => {
     updateBtn.style.display = 'none';
 }
 
-// close the modal
-const close = () => {
-    editModal.style.display = 'none';
-    editModal.classList.remove('show');
-    clear();
-}
-
 // update the wine post
 async function update(id, wine, size, price, note, imageFile, imageKey) {
     let d = new FormData(); 
+
+    console.log(id, wine, size, price, note, imageFile, imageKey)
 
     // TODO: handle if the image is not updated
     // FIXME: 500 error code
     // if(imageFile.files[0]) {
     //     d.append('image', imageFile.files[0]);
     // }
-    
+
     d.append('image', imageFile.files[0]);
     d.append('json', JSON.stringify({
         name: wine,
@@ -54,7 +54,6 @@ async function update(id, wine, size, price, note, imageFile, imageKey) {
 
     if (response.ok) {
         clear();
-        close();
         document.location.reload();
     } else {
         alert(response.statusText);
@@ -62,13 +61,12 @@ async function update(id, wine, size, price, note, imageFile, imageKey) {
 }
 
 const populateModal = (data, id, imageURL) => {
-    // show the modal
-    editModal.style.display = 'block';
-    editModal.classList.add('show');
+    title.textContent = 'Update Wine';
+    subTitle.textContent = `${data.name}`;
 
     // add close functionality
-    document.getElementsByClassName('close')[0].addEventListener('click', close);
-    document.getElementById('close-btn').addEventListener('click', close);
+    document.getElementsByClassName('close')[0].addEventListener('click', clear);
+    document.getElementById('close-btn').addEventListener('click', clear);
 
     // hide the submit button
     submitBtn.style.display = 'none';

@@ -6,12 +6,16 @@
                 Add +
             </button>
 
+            {{!-- FIXME: fade only works on the add button, not the edit functionality --}}
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                  aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Add A Wine</h5>
+                        <div class="modal-header rounded-0">
+                            <div id="title-div">
+                                <h5 class="modal-title" id="exampleModalLabel">Add A Wine</h5>
+                                <h6 id="sub-title"></h6>
+                            </div>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -20,31 +24,31 @@
 
                             <form class="new-wine">
                                 <div>
-                                    <label for="wine">Choose your wine from the list:</label>
-                                    <input type="text" name="wine" id="wine">
+                                    <label for="wine">Wine:</label>
+                                    <input class="modal-input" type="text" name="wine" id="wine" placeholder="What is the name of your wine?">
                                 </div>
                                 {{!-- wine type --}}
                                 <div>
                                     <label for="size">Select a bottle size:</label>
                                     {{!-- Current bottle sizes, leave this hardcoded --}}
-                                    {{!-- TODO: change to select tag --}}
-                                    <select name="size" id="sizes">
+                                    <select class="modal-input" name="size" id="sizes">
+                                        <option value="" hidden>Choose a bottle size...</option>
                                         <option value="750 ml">750 ml</option>
                                         <option value="500 ml">500 ml</option>
                                         <option value="375 ml">375 ml</option>
                                     </select>
                                 </div>
                                 <div>
-                                    <label for="retail-price">What is the retail price of the wine?</label>
-                                    <input type="number" id="retail-price"/>
+                                    <label for="retail-price">Price:</label>
+                                    <input class="modal-input" type="number" id="retail-price" placeholder="What is the retail price of the wine?"/>
                                 </div>
                                 <div>
-                                    <label for="notes">Any notes about this wine?</label>
-                                    <input type="text" id="notes"/>
+                                    <label for="notes">Additional Notes:</label>
+                                    <textarea  class="modal-input" type="text" id="notes" placeholder="Any notes about this wine?"></textarea>
                                 </div>
                                 <div>
                                     <label for="Wine Image">Have a picture to share?</label>
-                                    <input type="file" id="input-image" accept="image/*" />
+                                    <input class="modal-input" type="file" id="input-image" accept="image/*" />
                                 </div>
                         </div>
                         <div class="modal-footer">

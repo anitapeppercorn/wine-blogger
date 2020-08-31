@@ -1,0 +1,50 @@
+#update {
+    display: none;
+}
+
+.modal-header {
+    background-color: #49111C;
+    color: white;
+}
+
+#title-div {
+    display: block;
+}
+
+.modal-title {
+    font-weight: bold;
+    font-size: 22px;
+}
+
+label {
+    font-weight: bold;
+}
+
+.modal-input {
+    width: 100%;
+    border: none;
+    border-bottom: solid 1px gray;
+    margin-bottom: 15px;
+}
+
+textarea {
+    border: solid 1px gray;
+}
+
+#input-image {
+    border: none;
+}
+
+.close {
+    color: white;
+    opacity: 1;
+}
+
+.close:hover {
+    color: #fff;
+}
+
+#sub-title {
+    padding-top: 5px;
+    opacity: 0.8;
+}

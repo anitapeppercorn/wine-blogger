@@ -106,7 +106,7 @@ router.put('/:id', withAuth, upload.single('image'), (req, res) => {
                 console.log("There was an error: ", err);
                 return res.status(500).send({
                     success: false,
-                    message: 'Error saving fil to aws',
+                    message: 'Error saving file to aws',
                     error: err
                 })
             }

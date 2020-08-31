@@ -29,7 +29,9 @@ async function newWineHandler(event) {
         response.json().then(data => {
             console.log(data);
         })
+        document.location.reload();
     }
 }
+
 
 document.querySelector('.new-wine').addEventListener('submit', newWineHandler);
