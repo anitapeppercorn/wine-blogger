@@ -65,12 +65,12 @@ router.get('/wine/:id', (req, res) => {
                 attributes: ['id', 'comment_text', 'wine_id', 'user_id', 'created_at'],
                 include: {
                     model: User,
-                    attributes: ['username']
+                    attributes: ['id', 'username']
                 }
             },
             {
                 model: User,
-                attributes: ['username']
+                attributes: ['id', 'username']
             }
         ]
     })
@@ -81,10 +81,14 @@ router.get('/wine/:id', (req, res) => {
             }
 
             const wine = dbWineData.get({ plain: true });
+            console.log("wine /nvb-routes", "wine")
+            console.log("session id", req.session.username)
+            let isUsers = wine.user.username == req.session.username
 
             res.render('single-wine', {
                 wine,
-                loggedIn: req.session.loggedIn
+                loggedIn: req.session.loggedIn,
+                showDelete: isUsers
             });
         })
         .catch(err => {
