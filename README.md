@@ -89,7 +89,7 @@ Specification we met:
 To use this application for your own purposes: Clone the GitHub repository, and install all the dependencies, with```npm install```, on the integrated terminal install all the dependcies. 
 
 Create your .env file and type in:
-DB_NAME='tech_blog_db'
+DB_NAME='wine_app_db'
 DB_USER='yourusername'
 DB_PW='yourpassword'
 aws_accesskey='yourawsaccesskey'
