@@ -6,15 +6,18 @@
 
 ## Link to Deployed App
 
+https://secure-chamber-23014.herokuapp.com/login
 
 ## User Story
 
 ```text
 As a collector of quality wine, 
-I want to track my collection, 
-add personal observations to the catalogue, 
-share my collection with others, 
-and search for rare bottles to add to my collection.
+I want to track my collection by adding wines to my inventory, 
+be able to comment on other's wine posts,
+provide a rating by voting for wines,
+be able to upload images of wines and display a snap in my inventory,
+be able to update wine information in my inventory,
+be able to delete my wine post
 ```
 
 ## Acceptance Criteria
@@ -35,3 +38,16 @@ Protect API keys and sensitive information with environment variables.
 Have a clean repository that meets quality coding standards (file structure, naming conventions, follows best practices for class/id naming conventions, indentation, quality comments, etc.).
 Have a quality README (with unique name, description, technologies used, screenshot, and link to deployed application).
 ```
+
+## Technologies Used
+
+- Node.js
+- Express.js
+- Handlebars
+- MySQL
+- Sequelize ORM
+- Javascript
+- MVC
+- Jest
+- authentication (express-session)
+- Amazon S3 (aws-sdk for storing images) 
