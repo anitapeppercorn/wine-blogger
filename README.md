@@ -38,35 +38,34 @@ SO THAT I can share images of wine bottles, information of the wine (name/type/a
 
 ### Acceptance Criteria
 GIVEN a wine blog site
-WHEN I visit the site for the first time
-THEN I am presented with the homepage, which includes existing blog posts if any have been posted; navigation links for the inventory; and the option to log in
-WHEN I click on any other links in the navigation
-THEN I am prompted to either sign up or sign in
-WHEN I choose to sign up
-THEN I am prompted to create a username and password, and confirm that I am over 21 years of age
-WHEN I click on the sign-up button
-THEN my user credentials are saved and I am logged into the site
-WHEN I revisit the site at a later time and choose to sign in
-THEN I am prompted to enter my username and password
-WHEN I am signed in to the site
-THEN I see navigation links for the homepage, inventory, and the option to log out
-WHEN I click on the homepage option in the navigation
-THEN I am taken to the homepage and presented with all wine-blog posts that include the wine-name, an image of the wine if available, the blogger's name, information about the wine and the blogger's post on their experience with the wine
-WHEN I click on an existing wine-blog post
-THEN I am presented with the the wine-name, an image of the wine if available, the blogger's name, information about the wine and the blogger's post on their experience with the wine and I have the option to leave a comment
-WHEN I enter a comment and click on the submit button while signed in
-THEN the comment is saved and the post is updated to display the comment, and the comment creator’s username
-WHEN I click on the Inventory option in the navigation
-THEN I am taken to the Inventory and presented with all the wine-blog posts I have already created for wines in my inventory and the option to add a new wine-blog post
-WHEN I click on the button to add a new wine-blog post
-THEN I am prompted to enter or select information of the wine-type, size of bottle, price, tasting experience and an image of the wine to document my personal inventory (collection) of wines in my cellar
-THEN the title and contents of my wine-blog post are saved and I am taken back to an updated inventory with my new post
-WHEN I click on one of my existing posts in my inventory
-THEN I am able to delete or update my post and taken back to an updated inventory
-WHEN I click on the logout option in the navigation
-THEN I am signed out of the site
-WHEN I am idle on the page for more than a set time
-THEN I am automatically signed out of the site
+- WHEN I visit the site for the first time
+-- THEN I am presented with the homepage, which includes existing blog posts if any have been posted; navigation links for the inventory; and the option to log in
+- WHEN I click on any other links in the navigation
+-- THEN I am prompted to either sign up or sign in
+- WHEN I choose to sign up
+-- THEN I am prompted to create a username and password, and confirm that I am over 21 years of age
+- WHEN I click on the sign-up button
+--THEN my user credentials are saved and I am logged into the site
+- WHEN I revisit the site at a later time and choose to sign in
+-- THEN I am prompted to enter my username and password
+- WHEN I am signed in to the site
+-- THEN I see navigation links for the homepage, inventory, and the option to log out
+- WHEN I click on the homepage option in the navigation
+-- THEN I am taken to the homepage and presented with all wine-blog posts that include the wine-name, an image of the wine if available, the blogger's name, information about the wine and the blogger's post on their experience with the wine
+- WHEN I click on an existing wine-blog post
+-- THEN I am presented with the the wine-name, an image of the wine if available, the blogger's name, information about the wine and the blogger's post on their experience with the wine and I have the option to leave a comment
+- WHEN I enter a comment and click on the submit button while signed in
+-- THEN the comment is saved and the post is updated to display the comment, and the comment creator’s username
+- WHEN I click on the Inventory option in the navigation
+-- THEN I am taken to the Inventory and presented with all the wine-blog posts I have already created for wines in my inventory and the option to add a new wine-blog post
+- WHEN I click on the button to add a new wine-blog post
+-- THEN I am prompted to enter or select information of the wine-type, size of bottle, price, tasting experience and an image of the wine to document my personal inventory (collection) of wines in my cellar and the title and contents of my wine-blog post are saved and I am taken back to an updated inventory with my new post
+- WHEN I click on one of my existing posts in my inventory
+-- THEN I am able to delete or update my post and taken back to an updated inventory
+- WHEN I click on the logout option in the navigation
+-- THEN I am signed out of the site
+- WHEN I am idle on the page for more than a set time
+-- THEN I am automatically signed out of the site
 
 Specification we met:
 1. Use Node.js and Express.js to create a RESTful API.
