@@ -40,4 +40,54 @@ a {
     background-color: #D99D55;
 }
 
-/* #A68160 */
+.topnav {
+    display: none;
+}
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    .desktop {
+        display: none;
+    }
+
+    /* Style the navigation menu */
+    .topnav {
+        display: block;
+        overflow: hidden;
+        position: relative;
+    }
+    
+    /* Hide the links inside the navigation menu (except for logo/home) */
+    .topnav #nav-links {
+        display: none;
+    }
+    
+    /* Style navigation menu links */
+    .topnav a {
+        color: black;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+        display: block;
+    }
+    
+    /* Style the hamburger menu */
+    .topnav a.icon {
+        background: black;
+        display: block;
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 55.88px;
+    }
+    
+    /* Add a grey background color on mouse-over */
+    .topnav a:hover {
+        background-color: #ddd;
+        color: black;
+    }
+
+    .fa {
+        color: white;
+    }
+}

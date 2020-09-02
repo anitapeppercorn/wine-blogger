@@ -25,6 +25,7 @@ label {
     border: none;
     border-bottom: solid 1px gray;
     margin-bottom: 15px;
+    background-color: white;
 }
 
 textarea {
