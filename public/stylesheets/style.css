@@ -6,6 +6,7 @@ header {
     background-color: white;
     z-index: 1;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+    padding: 1rem;
 }
 
 a:hover {
@@ -57,7 +58,7 @@ a {
     background-color: #D99D55;
 }
 
-.topnav {
+#ham-nav {
     display: none;
 }
 
@@ -71,44 +72,69 @@ a {
         display: none;
     }
 
-    /* Style the navigation menu */
-    .topnav {
-        display: block;
-        overflow: hidden;
-        position: relative;
-    }
-    
-    /* Hide the links inside the navigation menu (except for logo/home) */
-    .topnav #nav-links {
-        display: none;
-    }
-    
-    /* Style navigation menu links */
-    .topnav a {
-        color: black;
-        padding: 14px 16px;
-        text-decoration: none;
-        font-size: 17px;
+    #ham-nav {
         display: block;
     }
-    
-    /* Style the hamburger menu */
-    .topnav a.icon {
-        background: black;
-        display: block;
+
+    header .icon {
+        margin: 1rem;
         position: absolute;
         right: 0;
         top: 0;
     }
+
+    /* The side navigation menu */
+    .sidenav {
+        height: 100%; /* 100% Full-height */
+        width: 0; /* 0 width - change this with JavaScript */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Stay on top */
+        top: 0; /* Stay at the top */
+        right: 0;
+        background-color: #111; /* Black*/
+        overflow-x: hidden; /* Disable horizontal scroll */
+        padding-top: 60px; /* Place content 60px from the top */
+        transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    }
     
-    /* Add a grey background color on mouse-over */
-    .topnav a:hover {
-        background-color: #ddd;
-        color: black;
+    /* The navigation menu links */
+    .sidenav a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 25px;
+        color: white;
+        display: block;
+        transition: 0.3s;
     }
 
-    .fa {
+    .logout {
         color: white;
+    }
+    
+    /* When you mouse over the navigation links, change their color */
+    .sidenav a:hover {
+        color: #f1f1f1;
+    }
+    
+    /* Position and style the close button (top right corner) */
+    .sidenav .closebtn {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+    }
+    
+    /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+    #main {
+        transition: margin-left .5s;
+        padding: 20px;
+    }
+    
+    /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+    @media screen and (max-height: 450px) {
+        .sidenav {padding-top: 15px;}
+        .sidenav a {font-size: 18px;}
     }
 }
 
