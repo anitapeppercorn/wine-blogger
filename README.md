@@ -127,7 +127,7 @@ View the authors' portfolio at:
 2. https://priyaravi23.github.io/professional-portfolio/
 ![Badge](https://img.shields.io/badge/Github-priyaravi23-4cbbb9) 
 ![Profile Image](https://github.com/priyaravi23.png?size=50)
-3. https://shhu21.github.io/shhu21profileportfolio/
-![Profile Image](https://github.com/shhu21.png?size=50)
+3. https://github.com/shhu21/portfolio
+![Badge](https://img.shields.io/badge/Github-shhu21-4cbbb9) </br>
 
-[Table of Content](#Table-of-Content) --- [Back to Top](#wine-blogger) --- [Installation](#Installation)# wine-blogger
+[Table of Content](#contents) --- [Back to Top](#wine-blogger---full-stack-application) --- [Installation](#installation)
