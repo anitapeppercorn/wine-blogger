@@ -44,7 +44,8 @@ Comment.belongsTo(User, {
 });
 
 Comment.belongsTo(Wine, {
-    foreignKey: 'wine_id'
+    foreignKey: 'wine_id',
+    onDelete: 'CASCADE'
 });
 
 User.hasMany(Comment, {
@@ -52,7 +53,8 @@ User.hasMany(Comment, {
 });
 
 Wine.hasMany(Comment, {
-    foreignKey: 'wine_id'
+    foreignKey: 'wine_id',
+    onDelete: 'CASCADE'
 });
 
 module.exports = {User, Wine, Vote, Comment};

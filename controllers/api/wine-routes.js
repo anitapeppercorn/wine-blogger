@@ -90,6 +90,17 @@ router.get('/:id', (req, res) => {
         });
 });
 
+//wine voting route
+router.put('/upvote', withAuth, (req, res) => {
+    if (req.session) {
+        Wine.upvote({ ...req.body, user_id: req.session.user_id }, { Vote, Comment, User })
+            .then(updatedVoteData => res.json(updatedVoteData))
+            .catch(err => {
+                console.log(err);
+                res.status(500).json(err);
+            });
+    }
+});
 
 router.put('/:id', withAuth, upload.single('image'), (req, res) => {
     let wineData = JSON.parse(req.body.json);
@@ -132,18 +143,6 @@ router.put('/:id', withAuth, upload.single('image'), (req, res) => {
             })
         })
     })
-});
-
-//wine voting route
-router.put('/upvote', withAuth, (req, res) => {
-    if (req.session) {
-        Wine.upvote({ ...req.body, user_id: req.session.user_id }, { Vote, Comment, User })
-            .then(updatedVoteData => res.json(updatedVoteData))
-            .catch(err => {
-                console.log(err);
-                res.status(500).json(err);
-            });
-    }
 });
 
 // Delete wines
