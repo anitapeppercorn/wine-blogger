@@ -1,5 +1,11 @@
 header {
     text-align: center;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background-color: white;
+    z-index: 1;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
 }
 
 a:hover {
@@ -19,7 +25,7 @@ footer {
 
 .comment-body {
     height: 120px;
-    width: 590px;
+    width: 100%;
 }
 
 #wine-pic {
@@ -53,6 +59,10 @@ a {
 
 .topnav {
     display: none;
+}
+
+.pull-right {
+    float: none;
 }
 
 @media only screen and (max-width: 768px) {
@@ -89,7 +99,6 @@ a {
         position: absolute;
         right: 0;
         top: 0;
-        height: 55.88px;
     }
     
     /* Add a grey background color on mouse-over */
@@ -103,7 +112,7 @@ a {
     }
 }
 
-@media only screen and (max-width: 425px){
+@media only screen and (max-width: 575px){
     h1 {
         font-size: 2rem;
     }
@@ -119,24 +128,5 @@ a {
 
     .wine-title {
         display: table-cell;
-    }
-}
-
-@media only screen and (max-width: 375px){
-    h1 {
-        font-size: 2rem;
-    }
-
-    .topnav a.icon {
-        height: auto;
-    }
-
-    .card-title {
-        display: block;
-        margin-right: 0;
-    }
-
-    .wine-name {
-        width: 100%;
     }
 }
