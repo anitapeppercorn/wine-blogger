@@ -2,6 +2,11 @@ header {
     text-align: center;
 }
 
+a:hover {
+    text-decoration: none;
+    color: black;
+}
+
 main {
     background-color: #49111C;
     padding: 0 0 15px 0;
@@ -95,5 +100,43 @@ a {
 
     .fa {
         color: white;
+    }
+}
+
+@media only screen and (max-width: 425px){
+    h1 {
+        font-size: 2rem;
+    }
+
+    .topnav a.icon {
+        height: auto;
+    }
+
+    .card-title {
+        display: block;
+        margin-right: 10;
+    }
+
+    .wine-title {
+        display: table-cell;
+    }
+}
+
+@media only screen and (max-width: 375px){
+    h1 {
+        font-size: 2rem;
+    }
+
+    .topnav a.icon {
+        height: auto;
+    }
+
+    .card-title {
+        display: block;
+        margin-right: 0;
+    }
+
+    .wine-name {
+        width: 100%;
     }
 }
