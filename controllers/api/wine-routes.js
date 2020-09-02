@@ -104,45 +104,69 @@ router.put('/upvote', withAuth, (req, res) => {
 
 router.put('/:id', withAuth, upload.single('image'), (req, res) => {
     let wineData = JSON.parse(req.body.json);
-    const s3 = new awsSDK.S3();
-    
-    // FIXME: filename in req.file.filename is undefined when using the if statement in edit.js (line 36)
-    fs.readFile(`uploads/${req.file.filename}`, function (er, d) {
-        s3.putObject({
-            Bucket: 'wineblogger.com',
-            Key: wineData.imageKey,
-            Body: d
-        }, function (err, data) {
-            if (err) {
-                console.log("There was an error: ", err);
-                return res.status(500).send({
-                    success: false,
-                    message: 'Error saving file to aws',
-                    error: err
-                })
-            }
+    if (req.file) {
+        const s3 = new awsSDK.S3();
+        // FIXME: filename in req.file.filename is undefined when using the if statement in edit.js (line 36)
+        let keyPath = wineData.imageKey; 
+        let newPath = null; 
+        if(keyPath == 'b8d3e682b5e7115e441189ccb1ac18c6') {
+            keyPath = req.file.filename; 
+            newPath = "https://s3.us-east-2.amazonaws.com/wineblogger.com/" + req.file.filename;
+        }
+        fs.readFile(`uploads/${req.file.filename}`, function (er, d) {
+            s3.putObject({
+                Bucket: 'wineblogger.com',
+                Key: keyPath,
+                Body: d
+            }, function (err, data) {
+                if (err) {
+                    console.log("There was an error: ", err);
+                    return res.status(500).send({
+                        success: false,
+                        message: 'Error saving file to aws',
+                        error: err
+                    })
+                }
 
-            delete wineData['imageKey'];
-            Wine.update(wineData,
+                delete wineData['imageKey'];
+                if(newPath)
+                    wineData.imageurl = newPath; 
+                Wine.update(wineData,
+                    {
+                        where: {
+                            id: req.params.id
+                        }
+                    })
+                    .then(dbWineData => {
+                        res.json({ wine: dbWineData, awsResponse: data })
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        res.status(500).json(err);
+                    });
+
+                /*res.status(200).send({
+                    message: `Updated: ${wineData.imageKey}`,
+                    awsResponse: data
+                })*/
+            })
+        })
+    } else {
+        delete wineData['imageKey'];
+        Wine.update(wineData,
             {
                 where: {
                     id: req.params.id
                 }
             })
             .then(dbWineData => {
-                res.json({ wine: dbWineData, awsResponse: data })
+                res.json({ wine: dbWineData, awsCall: false  })
             })
             .catch(err => {
                 console.log(err);
                 res.status(500).json(err);
             });
-            
-            res.status(200).send({
-                message: `Updated: ${wineData.imageKey}`,
-                awsResponse: data
-            })
-        })
-    })
+    }
 });
 
 // Delete wines
@@ -152,61 +176,76 @@ router.delete('/:id', withAuth, (req, res) => {
             id: req.params.id
         }
     })
-    .then(dbWineData => {
-        if (!dbWineData) {
-            res.status(404).json({ message: 'No wine found with this id' });
-            return;
-        }
-        res.json(dbWineData);
-    })
-    .catch(err => {
-        console.log(err);
-        res.status(500).json(err);
-    });
+        .then(dbWineData => {
+            if (!dbWineData) {
+                res.status(404).json({ message: 'No wine found with this id' });
+                return;
+            }
+            res.json(dbWineData);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json(err);
+        });
 });
 
 router.post('/', withAuth, upload.single('image'), (req, res) => {
     let wineData = JSON.parse(req.body.json);
     console.log("body", wineData);
     console.log("image", req.file)
-    
-    const s3 = new awsSDK.S3();
-    fs.readFile(`uploads/${req.file.filename}`, function (er, d) {
+    if (req.file) {
+        const s3 = new awsSDK.S3();
+        fs.readFile(`uploads/${req.file.filename}`, function (er, d) {
 
-        s3.putObject({
-            Bucket: 'wineblogger.com',
-            Key: req.file.filename,
-            Body: d
-        }, function (err, data) {
-            if (err) {
-                console.log("There was an error: ", err);
-                return res.status(500).send({
-                    success: false,
-                    message: 'Error saving fil to aws',
-                    error: err
+            s3.putObject({
+                Bucket: 'wineblogger.com',
+                Key: req.file.filename,
+                Body: d
+            }, function (err, data) {
+                if (err) {
+                    console.log("There was an error: ", err);
+                    return res.status(500).send({
+                        success: false,
+                        message: 'Error saving file to aws',
+                        error: err
+                    })
+                }
+
+                console.log(data);
+                let bucketPath = "https://s3.us-east-2.amazonaws.com/wineblogger.com/" + req.file.filename;
+                Wine.create({
+                    name: wineData.name,
+                    bottle_size: wineData.bottle_size,
+                    price_paid: wineData.price_paid,
+                    notes: wineData.notes,
+                    user_id: req.session.user_id,
+                    imageurl: bucketPath
                 })
-            }
+                    .then(dbWineData => {
+                        res.json({ wine: dbWineData, awsResponse: data })
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        res.status(500).json(err);
+                    });
 
-            console.log(data);
-            let bucketPath = "https://s3.us-east-2.amazonaws.com/wineblogger.com/" + req.file.filename;
-            Wine.create({
-                name: wineData.name,
-                bottle_size: wineData.bottle_size,
-                price_paid: wineData.price_paid,
-                notes: wineData.notes,
-                user_id: req.session.user_id,
-                imageurl: bucketPath
             })
+        })
+    } else {
+        Wine.create({
+            name: wineData.name,
+            bottle_size: wineData.bottle_size,
+            price_paid: wineData.price_paid,
+            notes: wineData.notes,
+            user_id: req.session.user_id,
+        })
             .then(dbWineData => {
-                res.json({ wine: dbWineData, awsResponse: data })
+                res.json({ wine: dbWineData, awsCall: false })
             })
             .catch(err => {
-                console.log(err);
-                res.status(500).json(err);
-            });
-
-        })
-    })
+                console.log("Err", err);
+            })
+    }
 
 });
 

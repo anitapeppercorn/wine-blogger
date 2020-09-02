@@ -63,7 +63,7 @@ Wine.init(
         imageurl: {
             type: DataTypes.STRING,
             defaultValue: 'https://s3.us-east-2.amazonaws.com/wineblogger.com/b8d3e682b5e7115e441189ccb1ac18c6',
-            allowNull: true
+            allowNull: false  
         }
     },
 
