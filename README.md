@@ -27,7 +27,6 @@ Sharing your experiences with fellow wine enthusiasts can be just as important d
 
 ## Demo & Models
 ![Image of app](/winebloghomepage.png)
-![Responsive Image of app](/wineblogresponsive.png?size=100)
 ![DemoVideo](https://youtu.be/kg-SZft5_Q4)
 ### Demo 
 The video shows how a user would use the deployed application.
