@@ -3,7 +3,7 @@ This is a  wine app implemented using node.js, express.js, mySQL, Sequelize ORM,
 
 (We have used an Express.js API, configure it to use Sequelize to interact with a MySQL database).
 
-1. A link to the start up demo video is included here https://youtu.be/KlwsOc-TnfQ 
+1. A link to our demo video is included here https://www.youtube.com/watch?v=kg-SZft5_Q4&feature=youtu.be
 2. The application is deployed at https://secure-chamber-23014.herokuapp.com/
 3. This code for the app is published to github at: https://github.com/anitapeppercorn/wine-blogger
 
@@ -26,8 +26,8 @@ https://secure-chamber-23014.herokuapp.com/
 Sharing your experiences with fellow wine enthusiasts can be just as important drinking it. Wine lovers spend plenty of time searching for fine wines and savoring them, but most wine enthusiasts also spend at least some of their time reading and writing about their wine experiences, exploring new wineries and vintages, grape varietals and food combinations with their favorite wines. A simple Google search reveals a wide variety of wine types and opportunities to taste new varietals!
 
 ## Demo & Models
-![Image of app](/images/winebloghome.png)
-![DemoVideo](https://youtu.be/KlwsOc-TnfQ)
+![Image of app](/winebloghome.png)
+![DemoVideo](https://youtu.be/kg-SZft5_Q4)
 ### Demo 
 The video shows how a user would invoke the application from the command line.
 
