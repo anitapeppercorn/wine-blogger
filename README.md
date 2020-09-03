@@ -118,7 +118,7 @@ app will run at localhost3001
 [MIT License](./LICENSE)
 ![license](https://img.shields.io/badge/License-MIT-blue)
 
-### Authors: Anita Ganti, Sara Hu, Priva Ravi
+### Authors: Anita Ganti, Sara Hu, Priya Ravi
 
 View the authors' portfolio at:  
 1. https://anitapeppercorn.github.io/anitaprofileportfolio/
