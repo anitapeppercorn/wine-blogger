@@ -27,10 +27,10 @@ Sharing your experiences with fellow wine enthusiasts can be just as important d
 
 ## Demo & Models
 ![Image of app](/winebloghomepage.png)
-![Responsive Image of app](/wineblogresponsive.png)
+![Responsive Image of app](/wineblogresponsive.png?size=200)
 ![DemoVideo](https://youtu.be/kg-SZft5_Q4)
 ### Demo 
-The video shows how a user would invoke the application from the command line.
+The video shows how a user would use the deployed application.
 
 ### User Story
 AS A wine enthusiast who enjoys sharing and writing about my experiences exploring new varieties and vintages
