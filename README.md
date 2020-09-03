@@ -26,7 +26,8 @@ https://secure-chamber-23014.herokuapp.com/
 Sharing your experiences with fellow wine enthusiasts can be just as important drinking it. Wine lovers spend plenty of time searching for fine wines and savoring them, but most wine enthusiasts also spend at least some of their time reading and writing about their wine experiences, exploring new wineries and vintages, grape varietals and food combinations with their favorite wines. A simple Google search reveals a wide variety of wine types and opportunities to taste new varietals!
 
 ## Demo & Models
-![Image of app](/winebloghome.png)
+![Image of app](/winebloghomepage.png)
+![Responsive Image of app](/wineblogresponsive.png)
 ![DemoVideo](https://youtu.be/kg-SZft5_Q4)
 ### Demo 
 The video shows how a user would invoke the application from the command line.
