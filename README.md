@@ -1,5 +1,5 @@
 # Wine Blogger - Full Stack Application.
-This is a  wine app implemented using node.js, express.js, mySQL, Sequelize ORM, the AWS S3 bucket and handlebars.js that allows users to track their inventory of collected wines and socially interact with other wine lovers. This site is built from scratch and deployed to Heroku. The app follows an MVC paradigm in its architectural structure, using Handlebars.js as the templating language, Sequelize as the ORM, and the express-session npm package for authentication. The wine images shared by the user are processed using Multer and are posted and retrieved for display from an AWS S3 bucket we created. We created tests and tested pur app with jest.
+This is a  wine app implemented using node.js, express.js, mySQL, Sequelize ORM, the AWS S3 bucket and handlebars.js that allows users to track their inventory of collected wines and socially interact with other wine lovers. This site is built from scratch and deployed to Heroku. The app follows an MVC paradigm in its architectural structure, using Handlebars.js as the templating language, Sequelize as the ORM, and the express-session npm package for authentication. The wine images shared by the user are processed using Multer and are posted and retrieved for display from an AWS S3 bucket we created as a url. We created tests and tested our app with jest.
 
 (We have used an Express.js API, configure it to use Sequelize to interact with a MySQL database).
 
@@ -30,17 +30,20 @@ Sharing your experiences with fellow wine enthusiasts can be just as important d
 ![DemoVideo](https://youtu.be/kg-SZft5_Q4)
 ### Demo 
 The video shows how a user would use the deployed application.
+Demo addendum: 
+1. Addendum to demo with more login, logout,  get, post, default image, update image, comment, vote features https://youtu.be/_Dun3GgLZvw
+2. Deleting a wine post that you have made. You cannot delete other people’s posts. Only your own and after you log in  https://youtu.be/WFCLyPVXXg8
 
 ### User Story
 AS A wine enthusiast who enjoys sharing and writing about my experiences exploring new varieties and vintages
 I WANT a blog site
-SO THAT I can share images of wine bottles, information of the wine (name/type/appelation, price, tasting experience), and explore ways to all to my personal inventory (collection) of wines in my cellar.
+SO THAT I can share images of wine bottles, information of the wine (name-type-appelation, size of bottle, price, tasting experience), and explore ways to all to my personal inventory (collection) of wines in my cellar.
 
 ### Acceptance Criteria
 GIVEN a wine blog site
 - WHEN I visit the site for the first time
--- THEN I am presented with the homepage, which includes existing blog posts if any have been posted; navigation links for the inventory; and the option to log in
-- WHEN I click on any other links in the navigation
+-- THEN I am presented with the homepage, which includes existing blog posts if any have been posted; navigation link offers the option to log in
+- WHEN I click on the log-in link in the navigation
 -- THEN I am prompted to either sign up or sign in
 - WHEN I choose to sign up
 -- THEN I am prompted to create a username and password, and confirm that I am over 21 years of age
@@ -51,23 +54,23 @@ GIVEN a wine blog site
 - WHEN I am signed in to the site
 -- THEN I see navigation links for the homepage, inventory, and the option to log out
 - WHEN I click on the homepage option in the navigation
--- THEN I am taken to the homepage and presented with all wine-blog posts that include the wine-name, an image of the wine if available, the blogger's name, information about the wine and the blogger's post on their experience with the wine
+-- THEN I am taken to the homepage and presented with all wine-blog posts that include the wine-name, an image of the wine if available or a default wine image, the blogger's name, information about the wine and the blogger's post on their experience with the wine
 - WHEN I click on an existing wine-blog post
 -- THEN I am presented with the the wine-name, an image of the wine if available, the blogger's name, information about the wine and the blogger's post on their experience with the wine and I have the option to leave a comment
 - WHEN I enter a comment and click on the submit button while signed in
 -- THEN the comment is saved and the post is updated to display the comment, and the comment creator’s username
 - WHEN I click on the Inventory option in the navigation
--- THEN I am taken to the Inventory and presented with all the wine-blog posts I have already created for wines in my inventory and the option to add a new wine-blog post
+-- THEN I am taken to the Inventory and presented with all the wine-blog posts I have already created for wines in my inventory (if previously added) and the option to add a new wine-blog post
 - WHEN I click on the button to add a new wine-blog post
--- THEN I am prompted to enter or select information of the wine-type, size of bottle, price, tasting experience and an image of the wine to document my personal inventory (collection) of wines in my cellar and the title and contents of my wine-blog post are saved and I am taken back to an updated inventory with my new post
-- WHEN I click on one of my existing posts in my inventory
--- THEN I am able to delete or update my post and taken back to an updated inventory
+-- THEN I am prompted to enter or select information of the wine-type, size of bottle, price, tasting experience and an image of the wine to document my personal inventory (collection) of wines in my cellar and the title and contents of my wine-blog post are saved and I am taken to an updated inventory with my new post
+- WHEN I am logged in and click on one of my existing posts in my inventory
+-- THEN I am able to update my post and taken to an updated inventory
 - WHEN I click on the logout option in the navigation
 -- THEN I am signed out of the site
 - WHEN I am idle on the page for more than a set time
 -- THEN I am automatically signed out of the site
 
-Specification we met:
+Specifications we met:
 1. Use Node.js and Express.js to create a RESTful API.
 2. Use Handlebars.js as the templating engine.
 3. Use MySQL and the Sequelize ORM for the database.
@@ -85,7 +88,7 @@ Specification we met:
 
 
 ## Installation
-To use this application for your own purposes: Clone the GitHub repository, and install all the dependencies, with```npm install```, on the integrated terminal install all the dependcies. 
+To use this application for your own purposes: Clone the GitHub repository, and install all the dependencies, with```npm install```, on the integrated terminal install all the dependencies. 
 
 Create your .env file and type in:
 DB_NAME='wine_app_db'
@@ -131,3 +134,4 @@ View the authors' portfolio at:
 ![Badge](https://img.shields.io/badge/Github-shhu21-4cbbb9) </br>
 
 [Table of Content](#contents) --- [Back to Top](#wine-blogger---full-stack-application) --- [Installation](#installation)
+
